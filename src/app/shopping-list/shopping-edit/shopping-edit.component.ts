@@ -6,6 +6,7 @@ import {
   OnChanges,
 } from '@angular/core'
 import { Ingredient } from 'src/app/shared/ingredient.model'
+import { ShoppingListService } from '../shopping-list.service'
 
 @Component({
   selector: 'app-shopping-edit',
@@ -13,26 +14,23 @@ import { Ingredient } from 'src/app/shared/ingredient.model'
   styleUrls: ['./shopping-edit.component.scss'],
 })
 export class ShoppingEditComponent implements OnInit {
-  @Output() ingredientAdded = new EventEmitter<Ingredient>()
-  @Output() ingredientDeleted = new EventEmitter<Ingredient>()
   ingredientName: string
   ingredientAmount: number
 
-  constructor() {}
+  constructor(private shoppingListService: ShoppingListService) {}
 
   ngOnInit() {}
 
   onAddIngredient() {
-    this.ingredientAdded.emit({
-      name: this.ingredientName,
-      amount: this.ingredientAmount,
-    })
+    this.shoppingListService.addIngredient(
+      new Ingredient(this.ingredientName, this.ingredientAmount)
+    )
   }
 
-  onDeleteIngredient() {
-    this.ingredientDeleted.emit({
-      name: this.ingredientName,
-      amount: this.ingredientAmount,
-    })
-  }
+  // onDeleteIngredient() {
+  //   this.ingredientDeleted.emit({
+  //     name: this.ingredientName,
+  //     amount: this.ingredientAmount,
+  //   })
+  // }
 }

@@ -9,9 +9,11 @@ import { RecipesService } from '../recipes.service'
 })
 export class RecipeDetailComponent implements OnInit {
   @Input() recipe: Recipe
-  constructor() {
-  }
+  constructor(private recipesService: RecipesService) {}
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  onAddToShoppingList() {
+    this.recipesService.addIngredientsToSL(this.recipe.ingredients)
   }
 }
