@@ -20,16 +20,20 @@
         Manage Recipe <span class="caret"></span>
       </button>
       <ul class="dropdown-menu">
-        <li><a href="#" (click)="onAddToShoppingList()">To Shoppling List</a></li>
-        <li><a href="#">Edit Recipe</a></li>
-        <li><a href="#">Delete Recipe</a></li>
+        <li>
+          <a style="cursor: pointer" (click)="onAddToShoppingList()"
+            >To Shoppling List</a
+          >
+        </li>
+        <li><a style="cursor: pointer">Edit Recipe</a></li>
+        <li><a style="cursor: pointer">Delete Recipe</a></li>
       </ul>
     </div>
   </div>
 </div>
 <div class="row">
   <div class="col-xs-12">
-    <p>{{ recipe.desc }}</p>
+    <p class="mt-2">{{ recipe.desc }}</p>
   </div>
 </div>
 <div class="row">
