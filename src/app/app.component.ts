@@ -9,9 +9,4 @@ import { ShoppingListService } from './shopping-list/shopping-list.service';
 })
 export class AppComponent {
   title = 'recipe-shop'
-  currentNav = 'Recipes'
-
-  onNavClicked(currentNav: string) {
-    this.currentNav = currentNav
-  }
 }
