@@ -26,4 +26,8 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
     //Add 'implements OnDestroy' to the class.
     this.subscription.unsubscribe()
   }
+
+  onEditIngredient(id: number) {
+    this.shoppingListService.startedEditing.next(id)
+  }
 }
