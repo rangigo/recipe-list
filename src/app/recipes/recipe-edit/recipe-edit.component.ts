@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { ActivatedRoute, Params } from '@angular/router'
+import { ActivatedRoute, Params, Router } from '@angular/router'
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms'
 import { RecipesService } from '../recipes.service'
 import { Recipe } from '../recipe.model'
@@ -15,15 +15,16 @@ export class RecipeEditComponent implements OnInit {
   recipeForm: FormGroup
 
   constructor(
-    private router: ActivatedRoute,
-    private recipesService: RecipesService
+    private route: ActivatedRoute,
+    private recipesService: RecipesService,
+    private router: Router
   ) {}
 
   ngOnInit() {
-    this.router.params.subscribe((params: Params) => {
+    this.route.params.subscribe((params: Params) => {
       this.id = +params['id']
       this.editMode = params['id'] != null
-      console.log(this.editMode, params['id'])
+      // console.log(this.editMode, params['id'])
       let name: string = '',
         imgPath: string = '',
         desc: string = '',
@@ -59,7 +60,7 @@ export class RecipeEditComponent implements OnInit {
 
   onSubmit() {
     const value = this.recipeForm.value
-    console.log(value.ingredients)
+    // console.log(value.ingredients)
     const newRecipe = new Recipe(
       value.name,
       value.desc,
@@ -68,8 +69,10 @@ export class RecipeEditComponent implements OnInit {
     )
     if (this.editMode) {
       this.recipesService.updateRecipe(this.id, newRecipe)
+      this.router.navigate(['recipes', this.id])
     } else {
       this.recipesService.addRecipe(newRecipe)
+      this.router.navigate(['recipes', this.recipesService.recipes.length - 1])
     }
   }
 
@@ -84,7 +87,14 @@ export class RecipeEditComponent implements OnInit {
     ;(<FormArray>this.recipeForm.get('ingredients')).push(control)
   }
 
+  onCancel() {
+    this.recipeForm.reset()
+    if (this.editMode) {
+      this.router.navigate(['recipes', this.id])
+    } else this.router.navigate(['recipes'])
+  }
+
   onDeleteIngredient(id: number) {
-    this.recipeForm.get('ingredients')['controls'].splice(id, 1)
+    ;(<FormArray>this.recipeForm.get('ingredients')).removeAt(id)
   }
 }
