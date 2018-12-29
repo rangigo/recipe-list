@@ -7,16 +7,16 @@ import { ShoppingListService } from '../shopping-list/shopping-list.service'
 export class RecipesService {
   recipes: Recipe[] = [
     new Recipe(
-      'Test recipe',
-      'This is a test desc.',
-      'https://cdn.apartmenttherapy.info/image/fetch/f_auto,q_auto,w_600,h_750,c_fit,fl_strip_profile/https://s3.amazonaws.com/pixtruder/original_images/e3ce4eb1741bd76cc083424453c0e3f39d147f9b',
-      [new Ingredient('Meat', 1), new Ingredient('Mushrooms', 2)]
+      'Katsudon',
+      'Best fucking dish!',
+      'https://cooksmarts.imgix.net/meal_photos/844/20170306-Katsudon-NM-2.jpg?ixlib=rails-2.1.4&w=500&dpr=3',
+      [new Ingredient('Chicken', 4), new Ingredient('Breadcrumbs', 1)]
     ),
     new Recipe(
-      'Test recipe 2',
-      'This is a test desc. 2',
-      'https://cdn.apartmenttherapy.info/image/fetch/f_auto,q_auto,w_600,h_750,c_fit,fl_strip_profile/https://s3.amazonaws.com/pixtruder/original_images/e3ce4eb1741bd76cc083424453c0e3f39d147f9b',
-      [new Ingredient('Meat', 2), new Ingredient('Onions', 4)]
+      'Tempura',
+      'I love tempura',
+      'https://www.sbs.com.au/food/sites/sbs.com.au.food/files/Basic-tempura.jpg',
+      [new Ingredient('Shrimp', 2), new Ingredient('Veggie', 4)]
     ),
   ]
 
