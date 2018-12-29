@@ -5,3 +5,8 @@
 * {
   font-family: 'Montserrat', sans-serif;
 }
+
+input.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched {
+  border: 1px solid rgb(233, 61, 61);
+}
