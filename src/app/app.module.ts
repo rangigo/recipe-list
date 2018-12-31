@@ -17,7 +17,10 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { AppRoutingModule } from './app-routing.module'
 import { RecipeStartComponent } from './recipes/recipe-start/recipe-start.component'
 import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component'
-import { RecipesService } from './recipes/recipes.service'
+import { RecipesService } from './recipes/recipes.service';
+import { SignupComponent } from './auth/signup/signup.component';
+import { SigninComponent } from './auth/signin/signin.component'
+import { AuthService } from './auth/auth.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,6 +35,8 @@ import { RecipesService } from './recipes/recipes.service'
     PageNotFoundComponent,
     RecipeStartComponent,
     RecipeEditComponent,
+    SignupComponent,
+    SigninComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,7 +45,7 @@ import { RecipesService } from './recipes/recipes.service'
     ReactiveFormsModule,
     HttpClientModule,
   ],
-  providers: [ShoppingListService, RecipesService],
+  providers: [ShoppingListService, RecipesService, AuthService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

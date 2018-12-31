@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators'
 import { Ingredient } from '../shared/ingredient.model'
 import { ShoppingListService } from '../shopping-list/shopping-list.service'
 import { HttpClient, HttpResponse } from '@angular/common/http'
+import { AuthService } from '../auth/auth.service'
 
 @Injectable()
 export class RecipesService {
@@ -28,7 +29,8 @@ export class RecipesService {
 
   constructor(
     private slService: ShoppingListService,
-    private http: HttpClient
+    private http: HttpClient,
+    private authService: AuthService
   ) {}
 
   getRecipe(id: number) {
@@ -59,15 +61,21 @@ export class RecipesService {
   }
 
   storeRecipes() {
+    const token = this.authService.getToken()
+
     return this.http.put(
-      'https://recipe-shop-1c62a.firebaseio.com/recipes.json',
+      'https://recipe-shop-1c62a.firebaseio.com/recipes.json?auth=' + token,
       this.recipes
     )
   }
 
   fetchRecipes() {
-    return this.http
-      .get('https://recipe-shop-1c62a.firebaseio.com/recipes.json')
+    const token = this.authService.getToken()
+
+    this.http
+      .get(
+        'https://recipe-shop-1c62a.firebaseio.com/recipes.json?auth=' + token
+      )
       .subscribe(
         (recipes: Recipe[]) => {
           // recipes.forEach(recipe => {
