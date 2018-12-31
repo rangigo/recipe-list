@@ -49,4 +49,14 @@ export class ShoppingListService {
       this.ingredients
     )
   }
+
+  fetchShoppingList() {
+    this.http
+      .get('https://recipe-shop-1c62a.firebaseio.com/shopping-list.json')
+      .subscribe((ingres: Ingredient[]) => {
+        console.log(ingres)
+        this.ingredients = ingres
+        this.ingredientsChanged.next(this.getIngredients())
+      })
+  }
 }

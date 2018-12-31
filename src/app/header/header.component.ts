@@ -26,5 +26,6 @@ export class HeaderComponent implements OnInit {
 
   onFetchData() {
     this.recipesService.fetchRecipes()
+    this.slService.fetchShoppingList()
   }
 }
