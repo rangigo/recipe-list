@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core'
 import { Recipe } from './recipe.model'
+import { Subject } from 'rxjs'
+import { map } from 'rxjs/operators'
+
 import { Ingredient } from '../shared/ingredient.model'
 import { ShoppingListService } from '../shopping-list/shopping-list.service'
-import { Subject } from 'rxjs'
+import { HttpClient, HttpResponse } from '@angular/common/http'
 
 @Injectable()
 export class RecipesService {
@@ -23,7 +26,10 @@ export class RecipesService {
 
   recipesChanged = new Subject<Recipe[]>()
 
-  constructor(private slService: ShoppingListService) {}
+  constructor(
+    private slService: ShoppingListService,
+    private http: HttpClient
+  ) {}
 
   getRecipe(id: number) {
     return this.recipes[id]
@@ -50,5 +56,30 @@ export class RecipesService {
   addIngredientsToSL(ingres: Ingredient[]) {
     this.slService.addIngredients(ingres)
     this.recipesChanged.next(this.recipes.slice())
+  }
+
+  storeRecipes() {
+    return this.http.put(
+      'https://recipe-shop-1c62a.firebaseio.com/recipes.json',
+      this.recipes
+    )
+  }
+
+  fetchRecipes() {
+    return this.http
+      .get('https://recipe-shop-1c62a.firebaseio.com/recipes.json')
+      .subscribe(
+        (recipes: Recipe[]) => {
+          // recipes.forEach(recipe => {
+          //   if (!recipe['ingredients']) {
+          //     recipe['ingredients'] = []
+          //   }
+          // })
+          this.recipes = recipes
+          console.log(recipes)
+          this.recipesChanged.next(this.recipes.slice())
+        },
+        err => console.log(err)
+      )
   }
 }

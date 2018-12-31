@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core'
 import { Ingredient } from '../shared/ingredient.model'
 import { Subject } from 'rxjs'
+import { HttpClient } from '@angular/common/http'
 
 @Injectable()
 export class ShoppingListService {
@@ -11,6 +12,8 @@ export class ShoppingListService {
     new Ingredient('Apple', 5),
     new Ingredient('Tomato', 10),
   ]
+
+  constructor(private http: HttpClient) {}
 
   getIngredient(id: number) {
     return this.ingredients[id]
@@ -38,5 +41,12 @@ export class ShoppingListService {
   deleteIngredient(index: number) {
     this.ingredients.splice(index, 1)
     this.ingredientsChanged.next(this.ingredients.slice())
+  }
+
+  storeShoppingList() {
+    return this.http.put(
+      'https://recipe-shop-1c62a.firebaseio.com/shopping-list.json',
+      this.ingredients
+    )
   }
 }
