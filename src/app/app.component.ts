@@ -1,6 +1,5 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core'
 import { initializeApp } from 'firebase'
-import { AuthService } from './auth/auth.service'
 
 @Component({
   selector: 'app-root',
@@ -11,7 +10,7 @@ import { AuthService } from './auth/auth.service'
 export class AppComponent implements OnInit {
   title = 'recipe-shop'
 
-  constructor(private authService: AuthService) {}
+  constructor() {}
 
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.

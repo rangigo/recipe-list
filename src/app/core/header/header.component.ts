@@ -12,7 +12,7 @@ export class HeaderComponent implements OnInit {
   constructor(
     private recipesService: RecipesService,
     private slService: ShoppingListService,
-    private authService: AuthService
+    public authService: AuthService
   ) {}
 
   ngOnInit(): void {}
